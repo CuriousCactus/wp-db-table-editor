@@ -76,7 +76,7 @@ DBTableEditor.clearFilters = function(){
   DBTableEditor.dataView.refresh();
 };
 
-DBTableEditor.buttonColumnWidth=85;
+DBTableEditor.buttonColumnWidth=10;
 
 DBTableEditor.save = function(){
   if (Slick.GlobalEditorLock.isActive() && !Slick.GlobalEditorLock.commitCurrentEdit())
