@@ -76,7 +76,7 @@ DBTableEditor.clearFilters = function(){
   DBTableEditor.dataView.refresh();
 };
 
-DBTableEditor.buttonColumnWidth=85;
+DBTableEditor.buttonColumnWidth=10;
 
 DBTableEditor.save = function(){
   if (Slick.GlobalEditorLock.isActive() && !Slick.GlobalEditorLock.commitCurrentEdit())
@@ -109,11 +109,7 @@ DBTableEditor.save = function(){
   }
   //console.log('trying to save: ', toSave);
   var cols = DBTableEditor.data.columns.map(function(c){return c.originalName;});
-
-  if(!DBTableEditor.nodelete) {
-    cols.shift(); // remove buttons
-  }
-
+  cols.shift(); // remove buttons
   var toSend = JSON.stringify({
     modifiedIdxs:toSave.map(function(it){return it.modifiedIdxs;}),
     columns:cols,
@@ -418,7 +414,7 @@ DBTableEditor.afterLoadData = function(){
     r.id = rid;
   }
   // init columns
-  if(!DBTableEditor.nodelete){
+  if(!DBTableEditor.noedit){
     //console.log('Adding buttons column', DBTableEditor.buttonColumnWidth);
     columns.unshift({id: 'buttons',
                      formatter:DBTableEditor.rowButtonFormatter,
@@ -430,7 +426,7 @@ DBTableEditor.afterLoadData = function(){
     enableCellNavigation: true,
     enableColumnReorder: true,
     editable: !DBTableEditor.noedit,
-    enableAddRow: !DBTableEditor.noinsert,
+    enableAddRow: !DBTableEditor.noedit,
     multiColumnSort:true,
     autoEdit:false,
     editCommandHandler: DBTableEditor.queueAndExecuteCommand,
